@@ -1,0 +1,16 @@
+name: flutter_templater
+description: flutter_templater is a customizable CLI tool for managing Flutter app templates with YAML-based project definitions.
+version: 0.1.0
+homepage: https://github.com/micazi/flutter_templater
+
+environment:
+  sdk: ^3.5.3
+
+dependencies:
+  darted_cli: ^0.1.11
+
+dev_dependencies:
+  lints: ^4.0.0
+
+executables:
+  flutter_templater:
