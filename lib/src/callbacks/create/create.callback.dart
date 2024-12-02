@@ -16,19 +16,33 @@ Future<void> createCallBack(String? templateName, String projectName) async {
   validateTemplateIsProvided(templateName);
 
   // Make sure this template exists...
-  await ConsoleHelper.loadWithTask(task: 'Making sure template exists...', process: () async => await validateTemplateExists(templateName));
+  await ConsoleHelper.loadWithTask(
+      task: 'Making sure template exists...',
+      process: () async => await validateTemplateExists(templateName));
 
   // Make sure this template is not corrupted
-  await ConsoleHelper.loadWithTask(task: 'Making sure template is not corrupted...', process: () async => await validateTemplateIsNotCorrupted(templateName));
+  await ConsoleHelper.loadWithTask(
+      task: 'Making sure template is not corrupted...',
+      process: () async => await validateTemplateIsNotCorrupted(templateName));
 
   // Get the template's directory
-  Directory templateDirectory =
-      await IOHelper.directory.listAll(Constants.templatesPath!).then((dirs) => dirs.where((dd) => dd.path.split(Platform.pathSeparator).last == (templateName ?? '')).toList().first);
+  Directory templateDirectory = await IOHelper.directory
+      .listAll(Constants.templatesPath!)
+      .then((dirs) => dirs
+          .where((dd) =>
+              dd.path.split(Platform.pathSeparator).last ==
+              (templateName ?? ''))
+          .toList()
+          .first);
 
   // Process template data from the YAML file...
   late Map<dynamic, YamlNode> yamlMap;
   await ConsoleHelper.loadWithTask(
-      task: 'Parsing the template structure...', process: () async => await YamlModule.load("${templateDirectory.path}/template.yaml").then((v) => v.nodes).then((vv) => yamlMap = vv));
+      task: 'Parsing the template structure...',
+      process: () async =>
+          await YamlModule.load("${templateDirectory.path}/template.yaml")
+              .then((v) => v.nodes)
+              .then((vv) => yamlMap = vv));
 
   String? yamlDomain = yamlMap['domain']?.value;
   YamlList? yamlPlatforms = yamlMap['platforms']?.value;
@@ -37,14 +51,18 @@ Future<void> createCallBack(String? templateName, String projectName) async {
 
   // Validate for not having a folder structure...
   if (yamlStructure == null) {
-    ErrorHelper.print("Folder structure is not present, are you sure you need flutter_templify?");
+    ErrorHelper.print(
+        "Folder structure is not present, are you sure you need flutter_templify?");
     exit(1);
   }
 
   // Validate references in the structure...
   String? invalidReference;
   await ConsoleHelper.loadWithTask(
-      task: 'Making sure reference files are all there...', process: () async => await validateReferencesInStructure(yamlStructure, templateName!).then((v) => invalidReference = v));
+      task: 'Making sure reference files are all there...',
+      process: () async =>
+          await validateReferencesInStructure(yamlStructure, templateName!)
+              .then((v) => invalidReference = v));
   if (invalidReference != null) {
     ErrorHelper.print("The file reference '$invalidReference' is invalid.");
     exit(1);
@@ -60,12 +78,16 @@ Future<void> createCallBack(String? templateName, String projectName) async {
         // Create the project.
         String platforms = '';
         if (yamlPlatforms != null && !yamlIsPackage) {
-          if (yamlPlatforms.contains('android')) platforms += '--platforms android ';
+          if (yamlPlatforms.contains('android'))
+            platforms += '--platforms android ';
           if (yamlPlatforms.contains('ios')) platforms += '--platforms ios ';
           if (yamlPlatforms.contains('web')) platforms += '--platforms web ';
-          if (yamlPlatforms.contains('windows')) platforms += '--platforms windows ';
-          if (yamlPlatforms.contains('linux')) platforms += '--platforms linux ';
-          if (yamlPlatforms.contains('macos')) platforms += '--platforms macos ';
+          if (yamlPlatforms.contains('windows'))
+            platforms += '--platforms windows ';
+          if (yamlPlatforms.contains('linux'))
+            platforms += '--platforms linux ';
+          if (yamlPlatforms.contains('macos'))
+            platforms += '--platforms macos ';
         }
 
         String flutterCreateCommand =
@@ -79,7 +101,10 @@ Future<void> createCallBack(String? templateName, String projectName) async {
         }
 
         // Replicate the structure.
-        await createStructure(yamlStructure, Directory('$cwd${Platform.pathSeparator}$projectName'), templateName!);
+        await createStructure(
+            yamlStructure,
+            Directory('$cwd${Platform.pathSeparator}$projectName'),
+            templateName!);
       });
 
   // Change to the project's directory
@@ -100,6 +125,8 @@ Future<void> createCallBack(String? templateName, String projectName) async {
       });
 
   // Feedback
-  ConsoleHelper.write("${'All done!'.withColor(ConsoleColor.green)}\n${'CD into your new project and check it out!'.withColor(ConsoleColor.magenta)}", newLine: true);
+  ConsoleHelper.write(
+      "${'All done!'.withColor(ConsoleColor.green)}\n${'CD into your new project and check it out!'.withColor(ConsoleColor.magenta)}",
+      newLine: true);
   ConsoleHelper.exit(0);
 }
