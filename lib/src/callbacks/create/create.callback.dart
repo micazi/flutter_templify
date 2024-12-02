@@ -78,16 +78,24 @@ Future<void> createCallBack(String? templateName, String projectName) async {
         // Create the project.
         String platforms = '';
         if (yamlPlatforms != null && !yamlIsPackage) {
-          if (yamlPlatforms.contains('android'))
+          if (yamlPlatforms.contains('android')) {
             platforms += '--platforms android ';
-          if (yamlPlatforms.contains('ios')) platforms += '--platforms ios ';
-          if (yamlPlatforms.contains('web')) platforms += '--platforms web ';
-          if (yamlPlatforms.contains('windows'))
+          }
+          if (yamlPlatforms.contains('ios')) {
+            platforms += '--platforms ios ';
+          }
+          if (yamlPlatforms.contains('web')) {
+            platforms += '--platforms web ';
+          }
+          if (yamlPlatforms.contains('windows')) {
             platforms += '--platforms windows ';
-          if (yamlPlatforms.contains('linux'))
+          }
+          if (yamlPlatforms.contains('linux')) {
             platforms += '--platforms linux ';
-          if (yamlPlatforms.contains('macos'))
+          }
+          if (yamlPlatforms.contains('macos')) {
             platforms += '--platforms macos ';
+          }
         }
 
         String flutterCreateCommand =

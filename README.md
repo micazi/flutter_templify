@@ -4,7 +4,7 @@
 
 **`flutter_templify`** is a customizable CLI tool for managing Flutter app templates with YAML-based project definitions.
 
----
+## See how to get started [here](https://medium.com/@micazi/youre-starting-your-new-flutter-project-wrong-there-s-an-easier-way-59900c79d327).
 
 ## Table of Contents
 
