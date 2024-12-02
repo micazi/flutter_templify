@@ -9,7 +9,7 @@ Future<void> validateTemplateIsNotCorrupted(String? templateName) async {
   // Make sure the template exists
   await validateTemplateExists(templateName);
 
-  // Check if the directory has the templater yaml.
+  // Check if the directory has the template yaml.
   Directory templateDir = await IOHelper.directory.listAll(Constants.templatesPath!).then((d) => d.where((dd) => dd.path.split(Platform.pathSeparator).last == (templateName ?? '')).toList().first);
   List<File> templateFiles = await IOHelper.file.listAll(templateDir.path);
   if (!templateFiles.any((f) => f.path == "${templateDir.path}/template.yaml")) {
