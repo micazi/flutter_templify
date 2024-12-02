@@ -12,8 +12,7 @@ Future<void> listTemplatesCallback() async {
   await validateTemplateDirectoryExists();
 
   // Get the templates directories and make sure they're not empty...
-  List<Directory> dirs =
-      await IOHelper.directory.listAll(Constants.templatesPath!);
+  List<Directory> dirs = await IOHelper.directory.listAll(Constants.templatesPath!);
   await validateTemplatesNotEmpty(dirs);
 
   // Loop the templates and map to the list...
@@ -23,23 +22,18 @@ Future<void> listTemplatesCallback() async {
     validateTemplateIsNotCorrupted(d.path.split(Platform.pathSeparator).last);
 
     // Get the Yaml
-    Map<dynamic, YamlNode> yamlMap = await YamlModule.load(
-            "${d.path}${Platform.pathSeparator}templater.yaml")
-        .then((v) => v.nodes);
+    Map<dynamic, YamlNode> yamlMap = await YamlModule.load("${d.path}${Platform.pathSeparator}template.yaml").then((v) => v.nodes);
     String tempName = yamlMap['name']?.value;
     String tempDesc = yamlMap['description']?.value ?? 'N/A';
 
     // Get the Metadata
-    Map<String, dynamic> metaFile = await IOHelper.file
-        .readAsString("${d.path}/.meta")
-        .then((v) => jsonDecode(v));
+    Map<String, dynamic> metaFile = await IOHelper.file.readAsString("${d.path}/.meta").then((v) => jsonDecode(v));
 
     String tempVersion = metaFile['currentVersion'] ?? '0.0.1';
     String tempStorage = metaFile['storage'] ?? 'local';
 
     // Map to the printable string...
-    templatesMappedString.add(
-        "- ${tempName.withColor(ConsoleColor.cyan)} ${'($tempStorage/$tempVersion)'.withColor(ConsoleColor.blue)}: $tempDesc");
+    templatesMappedString.add("- ${tempName.withColor(ConsoleColor.cyan)} ${'($tempStorage/$tempVersion)'.withColor(ConsoleColor.blue)}: $tempDesc");
   });
 
   // Print & Return

@@ -1,8 +1,8 @@
-# flutter_templater
+# flutter_templify
 
-![Pub Version](https://img.shields.io/pub/v/flutter_templater) ![Publisher](https://img.shields.io/pub/publisher/flutter_templater) ![Pub Points](https://img.shields.io/pub/points/flutter_templater) ![License](https://img.shields.io/github/license/micazi/flutter_templater)
+![Pub Version](https://img.shields.io/pub/v/flutter_templify) ![Publisher](https://img.shields.io/pub/publisher/flutter_templify) ![Pub Points](https://img.shields.io/pub/points/flutter_templify) ![License](https://img.shields.io/github/license/micazi/flutter_templify)
 
-**`flutter_templater`** is a customizable CLI tool for managing Flutter app templates with YAML-based project definitions.
+**`flutter_templify`** is a customizable CLI tool for managing Flutter app templates with YAML-based project definitions.
 
 ---
 
@@ -34,12 +34,12 @@
 1. Activate the package globally via Dart's pub tool:
 
 ```bash
-dart pub global activate flutter_templater
+dart pub global activate flutter_templify
 ```
 
-2. Update your env variables with a `FLUTTER_TEMPLATER_PATH` variable that has the path to your saved templates. for how to do that, you can [check this link](https://www3.ntu.edu.sg/home/ehchua/programming/howto/Environment_Variables.html).
+2. Update your env variables with a `FLUTTER_TEMPLIFY_PATH` variable that has the path to your saved templates. for how to do that, you can [check this link](https://www3.ntu.edu.sg/home/ehchua/programming/howto/Environment_Variables.html).
 
-Once activated, you can use the flutter_templater command directly in your terminal.
+Once activated, you can use the flutter_templify command directly in your terminal.
 
 ## Usage
 
@@ -84,7 +84,7 @@ Metadata goes up there (These are the ones supported right now, more to come), a
 And now, you can check all your newly defined templates with:
 
 ```bash
-flutter_templater templates ls
+flutter_templify templates ls
 ```
 
 #### 2. Create a new flutter project
@@ -92,14 +92,14 @@ flutter_templater templates ls
 Now for the cool part, Here is how you quickly get up and running with a new project:
 
 ```bash
-flutter_templater create -t awesome-template -n my_awesome_project
+flutter_templify create -t awesome-template -n my_awesome_project
 ```
 
 wherever your terminal location is, the new project folder will be created, structured, validated, and ready for you to dive in!
 
 ## Developer Experience
 
-flutter_templater is built with developers in mind, providing:
+flutter_templify is built with developers in mind, providing:
 
 - **Streamlined Setup**: Spend less time configuring and more time building.
 - **Minimal Boilerplate**: Start new projects with a fully structured template.
@@ -113,7 +113,7 @@ flutter_templater is built with developers in mind, providing:
 
 ## Powered by darted_cli
 
-**flutter_templater** is built on top of the robust and flexible `darted_cli` framework.
+**flutter_templify** is built on top of the robust and flexible `darted_cli` framework.
 darted_cli makes it easy to create structured, feature-rich command-line interfaces in Dart with minimal effort.
 
 **Why darted_cli?**

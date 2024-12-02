@@ -3,7 +3,7 @@
 // ConsoleHelper.write(SpinnerLoader())
 
 // if (!validateEnvPathConfigured()) {
-//   ErrorHelper.print("You haven't set the 'FLUTTER_TEMPLATER_PATH' yet, please do so!");
+//   ErrorHelper.print("You haven't set the 'FLUTTER_TEMPLIFY_PATH' yet, please do so!");
 //   return;
 // }
 
