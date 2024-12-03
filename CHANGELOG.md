@@ -1,3 +1,3 @@
 - **[0.1.0]** - Initial Release.
 - **[0.1.1]** - Some fixes.
-- **[0.1.1]** - Some minor fixes.
+- **[0.1.2]** - Some minor fixes.
