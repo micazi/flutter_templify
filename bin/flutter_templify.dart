@@ -6,4 +6,5 @@ void main(List<String> input) => dartedEntry(
       input: input,
       commandsTree: commandsTree,
       customHelpResponse: (c) => commandsUsagePrinter(c),
+      customEntryHelper: (commandsTree) => defaultEntryHelper(commandsTree),
     );
