@@ -40,7 +40,7 @@ Future<void> createCallBack(String? templateName, String? projectName) async {
   // Make sure the template is valid...
   await ConsoleHelper.loadWithTask(
       task: 'Making sure template is valid...',
-      process: () async => await TemplateFileValid(
+      process: () async => await templateFileValid(
           "${templateDirectory.path}${Platform.pathSeparator}$templateName.yaml"));
 
   // Process template data from the YAML file...
@@ -71,7 +71,7 @@ Future<void> createCallBack(String? templateName, String? projectName) async {
 
   // Validate that supplied prompts are not main
   List<String> mainValues = ['project_name', 'domain_name'];
-  ValidateSuppliedPrompts(parsedExtraPromptedVars, mainValues);
+  validateSuppliedPrompts(parsedExtraPromptedVars, mainValues);
 
   // Default prompts...
   Map<String, dynamic> prompts = {
@@ -98,7 +98,7 @@ Future<void> createCallBack(String? templateName, String? projectName) async {
   Map<String, String> promptResults = {};
   await Future.forEach(prompts.entries, (prompt) async {
     // Make sure the prompt is valid...
-    ValidatePrompt(prompt);
+    validatePrompt(prompt);
     return await ConsoleHelper.getUserInput(
             defaultValue: prompt.value['default'],
             promptBuilder: (defValue, timeout) =>
@@ -109,7 +109,7 @@ Future<void> createCallBack(String? templateName, String? projectName) async {
             prompt.value['pattern'] != null &&
             prompt.value['pattern'].toString().isNotEmpty) {
           // Validate the result to the pattern...
-          ValidatePromptResult(
+          validatePromptResult(
               res, prompt.value['pattern'], prompt.value['title']);
         }
         promptResults.addEntries([MapEntry(prompt.key, res)]);
@@ -132,7 +132,7 @@ Future<void> createCallBack(String? templateName, String? projectName) async {
 
   try {
     // Construct the CREATE command...
-    String c = ConstructCreateCommand(
+    String c = constructCreateCommand(
         isPackage: parsedIsPackage,
         platforms: parsedPlatforms,
         projectName: projectName,
@@ -169,7 +169,7 @@ Future<void> createCallBack(String? templateName, String? projectName) async {
       });
 
   // Execute the custom commands
-  if (parsedCustomCommands.isNotEmpty)
+  if (parsedCustomCommands.isNotEmpty) {
     await Future.forEach(parsedCustomCommands, (command) async {
       // Pre-run print...
       ConsoleHelper.writeSpace();
@@ -190,6 +190,7 @@ Future<void> createCallBack(String? templateName, String? projectName) async {
           task: "Running '$command' succeeded",
           process: () => Future.delayed(const Duration(seconds: 0)));
     });
+  }
 
   // Feedback
   ConsoleHelper.write(

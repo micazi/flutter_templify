@@ -2,7 +2,7 @@ import 'package:darted_cli/console_helper.dart';
 
 import '../../../helpers/helpers.exports.dart';
 
-void ValidatePrompt(MapEntry prompt) {
+void validatePrompt(MapEntry prompt) {
   if (prompt.value is! Map ||
       (prompt.value as Map).isEmpty ||
       !(prompt.value as Map).containsKey('title') ||

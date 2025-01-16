@@ -5,7 +5,7 @@ import 'package:darted_cli/yaml_module.dart';
 import '../../../helpers/prints_helper.dart';
 
 /// Validate the template file supplied.
-Future<void> TemplateFileValid(String yamlFilePath) async {
+Future<void> templateFileValid(String yamlFilePath) async {
   // Check the path...
   if (!await IOHelper.file.exists(yamlFilePath)) {
     PrintsHelper.printError('The provided path to the config file is invalid.');

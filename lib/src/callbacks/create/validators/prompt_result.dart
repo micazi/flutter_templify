@@ -2,7 +2,7 @@ import 'package:darted_cli/console_helper.dart';
 
 import '../../../helpers/prints_helper.dart';
 
-void ValidatePromptResult(
+void validatePromptResult(
     String promptResult, String pattern, String titleValue) {
   if (!RegExp(pattern).hasMatch(promptResult)) {
     PrintsHelper.printError(

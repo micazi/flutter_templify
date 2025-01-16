@@ -30,9 +30,9 @@ Future<void> addTemplateCallback(
   await ConsoleHelper.loadWithTask(
       task: 'Parsing the template YAML file...',
       process: () async {
-        await TemplateFileValid(templateFilePath);
+        await templateFileValid(templateFilePath);
         YamlMap yamlMap = await YamlModule.load(templateFilePath);
-        Map<String, dynamic> p = await YamlModule.extractData(yamlMap);
+        Map<String, dynamic> p = YamlModule.extractData(yamlMap);
         parsedYamlMap = p;
       });
 

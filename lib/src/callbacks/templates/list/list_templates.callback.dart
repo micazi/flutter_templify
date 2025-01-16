@@ -39,7 +39,7 @@ Future<void> listTemplatesCallback() async {
           // Validate the template yaml file...
           String yamlFilePath =
               "${d.absolute.path}/$templateName.yaml".replaceSeparator();
-          await TemplateFileValid(yamlFilePath);
+          await templateFileValid(yamlFilePath);
 
           // Get the Yaml
           YamlMap yamlMap = await YamlModule.load(yamlFilePath);

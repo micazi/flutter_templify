@@ -1,4 +1,4 @@
-String ConstructCreateCommand(
+String constructCreateCommand(
     {required bool isPackage,
     required List<String> platforms,
     required String projectName,

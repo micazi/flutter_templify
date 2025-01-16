@@ -2,7 +2,7 @@ import 'package:darted_cli/console_helper.dart';
 
 import '../../../helpers/prints_helper.dart';
 
-void ValidateSuppliedPrompts(
+void validateSuppliedPrompts(
     Map<String, dynamic> map, List<String> mainValues) {
   for (var v in mainValues) {
     if (map.containsKey(v)) {

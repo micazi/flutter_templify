@@ -5,7 +5,7 @@ import '../../../constants.dart';
 import '../../shared/validators/template_exists.dart';
 import 'archive_folder.dart';
 
-Future<void> ExportTemplateCallback(
+Future<void> exportTemplateCallback(
     String? templateName, String? outputDirectoryPath) async {
   // Make sure the template exists...
   await ConsoleHelper.loadWithTask(

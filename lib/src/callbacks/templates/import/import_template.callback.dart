@@ -7,7 +7,7 @@ import '../../shared/validators/shared_validators.exports.dart';
 import 'unarchive_zip_file.dart';
 import 'zip_file_provided.dart';
 
-ImportTemplateCallback(String? filePath) async {
+Future<void> importTemplateCallback(String? filePath) async {
   // Validate the file is supplied and exists...
   await validateZipFileIsProvided(filePath);
 
@@ -34,6 +34,6 @@ ImportTemplateCallback(String? filePath) async {
         String yamlFilePath =
             "${Constants.templatesPath!}${Platform.pathSeparator}$templateName${Platform.pathSeparator}$templateName.yaml"
                 .replaceSeparator();
-        await TemplateFileValid(yamlFilePath);
+        await templateFileValid(yamlFilePath);
       });
 }

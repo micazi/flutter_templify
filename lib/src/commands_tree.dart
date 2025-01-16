@@ -96,7 +96,7 @@ List<DartedCommand> commandsTree = [
         flags: [
           DartedFlag.help,
         ],
-        callback: (args, flags) async => await ExportTemplateCallback(
+        callback: (args, flags) async => await exportTemplateCallback(
             args?['name'] ?? args?['n'], args?['output'] ?? args?['o']),
       ),
       //S2 -- Import
@@ -115,7 +115,7 @@ List<DartedCommand> commandsTree = [
           DartedFlag.help,
         ],
         callback: (args, flags) async =>
-            await ImportTemplateCallback(args?['file'] ?? args?['f']),
+            await importTemplateCallback(args?['file'] ?? args?['f']),
       ),
     ],
   ),
