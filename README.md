@@ -26,6 +26,9 @@ See how to get started [here](https://medium.com/@micazi/youre-starting-your-new
 - **Customizable Metadata**: Support for custom project names, package identifiers, and organization domains.
 - **Interactive CLI**: User-friendly prompts for dynamic project customization.
 - **Cross-Platform Support**: Works seamlessly on Windows, macOS, and Linux.
+- **Template Sharing**: Easily import/export your template for quick sharing.
+- **Dynamic Prompting**: Customize templates by defining additional variables that are prompted at runtime.
+- **Custom post-creation commands**: Specify custom commands to run after the project creation.
 
 ---
 
@@ -75,11 +78,12 @@ it's super easy, **just hear me out!**
 Metadata goes up there (These are the ones supported right now, more to come), and structure goes in like this:
 
 - If it's a **folder**, suffix it with a `/`.
-- If it's a **nested folder**, just indent it under it's parent folder.
+- If it's a **nested folder**, just indent it under its parent folder.
 - If it's a **file**, leave it as an entry.
 - Even better, you can add a path value to a **reference file** that will be cloned to your new structure!
+- Reference paths can be **relative** (e.g., `src/templates/file.txt`) or **absolute** (e.g., `abs:/absolute/path/to/file.txt`). Absolute paths must start with the prefix `abs:`.
 
-**And voila!**, You got yourself an easy way to get started with your new project without the hassle of doing all of that boiler plate process.
+**And voila!**, You got yourself an easy way to get started with your new project without the hassle of doing all of that boilerplate process.
 
 And now, you can check all your newly defined templates with:
 
@@ -87,7 +91,7 @@ And now, you can check all your newly defined templates with:
 flutter_templify templates ls
 ```
 
-#### 2. Create a new flutter project
+#### 2. Create a new Flutter project
 
 Now for the cool part, Here is how you quickly get up and running with a new project:
 
@@ -96,6 +100,34 @@ flutter_templify create -t awesome-template -n my_awesome_project
 ```
 
 wherever your terminal location is, the new project folder will be created, structured, validated, and ready for you to dive in!
+
+#### 3. Customize Your Prompts
+
+Templates support **dynamic prompting**. Use the `extra_prompted_vars` section in your YAML file to define additional variables that will be prompted during project creation.
+
+**Important Notes:**
+- Both `project_name` and `domain_name` are already included by default, so DO NOT redefine them.
+- Each variable MUST have a `title` and `description`.
+- Optional parameters include a `default` value and a validation `pattern` (using RegEx).
+
+Example:
+
+```yaml
+extra_prompted_vars:
+  api_url:
+    title: "API URL"
+    description: "Enter the base API URL for the project."
+    default: "https://api.example.com"
+    pattern: "^(https?:\/\/).+"
+  enable_analytics:
+    title: "Enable Analytics?"
+    description: "Would you like to enable analytics in your app? (yes/no)"
+    default: "yes"
+```
+
+At runtime, you'll be prompted to fill in these variables, which can then be dynamically injected into your project files.
+
+---
 
 ## Developer Experience
 
@@ -108,12 +140,15 @@ flutter_templify is built with developers in mind, providing:
 ## Featurs and Requests
 
 - [x] YAML-based project creation.
-- [ ] Dynamic placeholders inside of your reference files to substitute with metada _( e.g project name, version, etc.. )_
+- [X] Dynamic placeholders inside of your reference files to substitute with metadata _(e.g., project name, version, etc.)_
+- [x] Runtime prompts for additional variables using `extra_prompted_vars`.
+- [x] Custom commands to run after the project creation.
 - [ ] You tell me!
 
 ## Powered by darted_cli
 
 **flutter_templify** is built on top of the robust and flexible `darted_cli` framework.
+
 darted_cli makes it easy to create structured, feature-rich command-line interfaces in Dart with minimal effort.
 
 **Why darted_cli?**

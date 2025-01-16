@@ -1,0 +1,141 @@
+# Flutter Templify Configuration File
+# This file defines the structure and configuration for generating a Flutter app template.
+# Modify this template to suit your specific needs.
+# Developed & Maintained by @Micazi
+
+# ====================================================
+# GENERAL INFORMATION
+# ====================================================
+
+# Name of the template. REQUIRED.
+# Replace "template_name" with the desired name of your template.
+name: "template_name"
+
+# Version of the template. REQUIRED.
+# Use semantic versioning (e.g., "1.0.0").
+version: "1.0.0"
+
+# A brief description of the template's purpose. REQUIRED.
+description: "A brief description of what this template is for."
+
+# Platforms supported by this template. Defaults to [ios, android] if omitted.
+# Allowed values: [android, ios, web, macos, windows, linux].
+# This field is only relevant when `isPackage` is false.
+platforms:
+  - ios
+  - android
+
+# Specify whether the template is for a Flutter package.
+# Set to true for packages, false for regular Flutter projects.
+isPackage: false
+
+# ====================================================
+# TEMPLATE STRUCTURE
+# ====================================================
+
+# Define the structure of the template, including files and folders.
+# Each key represents the destination path in the generated project,
+# and the value represents the source path of the file in the template.
+# Paths can be relative to this YAML file or absolute.
+# - Relative paths start with "./" and point to files or folders within the same directory or subdirectories as this YAML file.
+# - Absolute paths must start with "abs:" and specify the full path to the file or folder on your system.
+
+structure:
+  # Files Section
+  # Example environment configuration files using relative paths.
+  development.env: "./ref/env/dev.env.example"
+  staging.env: "./ref/env/staging.env.example"
+  production.env: "./ref/env/prod.env.example"
+
+  # Example configuration files using absolute paths.
+  pubspec.yaml: "abs:/path/to/config/pubspec.yaml.example"
+  analysis_options.yaml: "abs:/path/to/config/analysis_options.yaml.example"
+
+  # Example documentation files.
+  README.md: "./ref/docs/readme.md.example"
+  CHANGELOG.md: "abs:/path/to/docs/changelog.md.example"
+
+  # Folders Section
+  # Example of a clean architecture structure:
+  lib/:
+    main.dart: "./ref/lib/main.dart.example"
+    core/:
+      utils/: # Utility classes and extensions.
+        string_extensions.dart: "./ref/core/utils/string_extensions.dart.example"
+    data/: # Data layer containing models, providers, and repositories.
+      models/: # Data models.
+        example_model.dart: "./ref/data/models/example_model.dart.example"
+      repositories/: # Repository implementations.
+        example_repository.dart: "abs:/path/to/data/repositories/example_repository.dart.example"
+      providers/: # Data providers (e.g., APIs, local storage).
+        api_provider.dart: "./ref/data/providers/api_provider.dart.example"
+    domain/: # Domain layer containing business logic.
+      entities/: # Domain entities.
+        example_entity.dart: "./ref/domain/entities/example_entity.dart.example"
+      usecases/: # Use cases for business logic.
+        example_usecase.dart: "./ref/domain/usecases/example_usecase.dart.example"
+    presentation/: # Presentation layer containing UI and state management.
+      screens/: # Individual screens.
+        home_screen.dart: "./ref/presentation/screens/home_screen.dart.example"
+      widgets/: # Reusable widgets.
+        custom_widget.dart: "abs:/path/to/presentation/widgets/custom_widget.dart.example"
+    assets/: # Asset files for the project.
+      translations/: # Localization files.
+        en.json: "./ref/assets/translations/en.json.example"
+
+# ====================================================
+# PROJECT CREATION
+# ====================================================
+
+# Define variables that will be prompted to the user during project creation.
+# IMPORTANT:
+# - Each variable MUST include:
+#   - `title`: A user-friendly name for the variable.
+#   - `description`: A brief explanation of what the variable represents.
+# - Optional parameters:
+#   - `default`: A default value for the variable.
+#   - `pattern`: A regular expression to validate user input.
+# - The variables `project_name` and `domain_name` are already included in the creation logic.
+#   Adding them in here will throw an exception.
+
+extra_prompted_vars:
+  app_title:
+    title: "Application Title"
+    description: "The title of the application being created."
+    default: "My Flutter App"
+
+  package_id:
+    title: "Package Identifier"
+    description: "A unique identifier for the project (e.g., com.example.app)."
+    default: "com.example.app"
+    pattern: "^[a-zA-Z]{2,61}[a-zA-Z0-9]*\\.[a-zA-Z]{1,}$"
+
+  author_name:
+    title: "Author Name"
+    description: "The name of the application's author."
+
+  version_name:
+    title: "Version Name"
+    description: "The human-readable version of the app (e.g., 1.0.0)."
+    default: "1.0.0"
+    pattern: "^\\d+\\.\\d+\\.\\d+$"
+
+# ====================================================
+# CUSTOM COMMANDS
+# ====================================================
+
+# Define commands to be executed automatically after project creation.
+# These commands will run in the root directory of the generated project.
+custom_commands:
+  - "flutter pub get" # Install dependencies.
+  - "pana ." # Analyze the project using Pana.
+
+# ====================================================
+# NOTES
+# ====================================================
+
+# - Replace placeholders (e.g., "template_name", "your_domain.com") with actual values.
+# - Ensure all referenced files (e.g., "./ref/...") exist. Files must be in the 'ref' folder to be moved correctly.
+# - Use absolute paths only when necessary and ensure they are prefixed with "abs:".
+# - This structure adheres to clean architecture principles but can be customized to your project's needs.
+

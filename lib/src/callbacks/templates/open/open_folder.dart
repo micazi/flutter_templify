@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:darted_cli/io_helper.dart';
 
 Future<void> openFolder(String folderPath) async {

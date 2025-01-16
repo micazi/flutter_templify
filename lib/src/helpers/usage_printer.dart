@@ -1,25 +1,33 @@
 import 'package:darted_cli/console_helper.dart';
 import 'package:darted_cli/darted_cli.dart';
 
+/// Print the usage (help) description .
 String commandsUsagePrinter(DartedCommand command) {
   String helpDescription =
       "${command.name.withColor(ConsoleColor.cyan)} :- ${command.helperDescription}";
   String usage =
-      "Usage: flutter_templify ${command.name} [--argumentKey value] [--flag, --no-flag]";
+      "Usage: flutter_loc ${command.name} [--argumentKey value] [--flag, --no-flag]";
   String availableArgsTitle = "Available Arguments:";
-  String argsList = (command.arguments?.isNotEmpty ?? false)
-      ? (command.arguments
-                  ?.map((a) =>
-                      "--${a?.name},-${a?.abbreviation} [default: ${a?.defaultValue ?? 'N/A'}]")
-                  .toList() ??
-              [])
-          .reduce((a, b) => "$a\n$b")
+  Map<String, String> argsList = Map.fromEntries(command.arguments
+          ?.map((a) => MapEntry(
+              "--${a?.name},-${a?.abbreviation} [default: ${a?.defaultValue ?? 'N/A'}]",
+              a?.description?.withColor(ConsoleColor.grey) ?? ''))
+          .toList() ??
+      []);
+  String justifiedArgs = (command.arguments?.isNotEmpty ?? false)
+      ? ConsoleHelper.justifyMap(argsList, gapSeparatorSize: 4)
+          .reduce((a, b) => "$a\n| $b")
       : 'N/A'.withColor(ConsoleColor.lightRed);
   String availableFlagsTitle = "Available Flags:";
-  String flagList = (command.flags?.isNotEmpty ?? false)
-      ? (command.flags?.map((a) => "--${a.name},-${a.abbreviation}").toList() ??
-              [])
-          .reduce((a, b) => "$a\n$b")
+  Map<String, String> flagList = Map.fromEntries(command.flags
+          ?.map((f) => MapEntry(
+              "--${f.name},-${f.abbreviation}${f.canBeNegated ? '  (Negatable)'.withColor(ConsoleColor.magenta) : ''}${f.appliedByDefault ? '  (Defaultly applied)' : ''}",
+              f.description?.withColor(ConsoleColor.grey) ?? ''))
+          .toList() ??
+      []);
+  String justifiedFlags = (command.flags?.isNotEmpty ?? false)
+      ? ConsoleHelper.justifyMap(flagList, gapSeparatorSize: 4)
+          .reduce((a, b) => "$a\n| $b")
       : 'N/A'.withColor(ConsoleColor.lightRed);
   String availableCommandsTitle = "Available Sub-commands:";
   String justifiedCommands = (command.subCommands?.isNotEmpty ?? false)
@@ -39,10 +47,10 @@ String commandsUsagePrinter(DartedCommand command) {
 | $usage
 |
 | $availableArgsTitle
-| $argsList
+| $justifiedArgs
 |
 | $availableFlagsTitle
-| $flagList
+| $justifiedFlags
 |
 | $availableCommandsTitle
 | $justifiedCommands

@@ -1,86 +1,70 @@
+import 'package:darted_cli/console_helper.dart';
 import 'package:darted_cli/io_helper.dart';
-
 import '../../constants.dart';
+import '../../helpers/helpers.exports.dart';
 
-Future<void> createStructure(
-    dynamic node, Directory baseDir, String templateName) async {
-  if (node is List) {
-    for (final item in node) {
-      if (item is String) {
-        // Handle folder or file based on trailing '/'
-        if (item.endsWith('/')) {
-          final newFolder = Directory(
-              '${baseDir.path}/${item.substring(0, item.length - 1)}');
+Future<void> createStructure(dynamic node, Directory baseDir,
+    String templateName, Map<String, String> replacementsMap) async {
+  if (node is Map) {
+    for (final entry in node.entries) {
+      final key = entry.key;
+      final value = entry.value;
 
-          // Skip platform folders (android, ios, web)
-          if (_isPlatformFolder(newFolder)) {
-            continue; // Skip creation of platform folders
-          }
+      if (key.endsWith('/')) {
+        //=> Folder
+        final Directory newDirectory =
+            Directory('${baseDir.path}/${key.substring(0, key.length - 1)}');
 
-          if (!newFolder.existsSync()) {
-            newFolder.createSync(recursive: true);
-          } else {
-            // Optionally overwrite or clear the folder content before recreating it
-            newFolder.createSync(
-                recursive: true); // Clear and recreate the folder if needed
-          }
-        } else {
-          final newFile = File('${baseDir.path}/$item');
-
-          if (_isPlatformFolder(newFile.parent)) {
-            continue; // Skip platform files
-          }
-
-          if (!newFile.existsSync()) {
-            newFile.createSync(recursive: true);
-          } else {
-            newFile.createSync(recursive: true); // Overwrite the file
-          }
+        // Skip platform folders (android, ios, web)...
+        if (_isPlatformFolder(newDirectory)) {
+          continue;
         }
-      } else if (item is Map) {
-        for (final entry in item.entries) {
-          final key = entry.key;
-          final value = entry.value;
 
-          if (key.endsWith('/')) {
-            final newFolder = Directory(
-                '${baseDir.path}/${key.substring(0, key.length - 1)}');
+        // Create the folder if it doesn't exist...
+        if (!await IOHelper.directory.exists(newDirectory.absolute.path)) {
+          await IOHelper.directory.create(newDirectory.absolute.path);
+        }
 
-            // Skip platform folders (android, ios, web)
-            if (_isPlatformFolder(newFolder)) {
-              continue; // Skip creation of platform folders
-            }
+        // Reloop in the nested structure with the new folder...
+        await createStructure(
+            value, newDirectory, templateName, replacementsMap);
+      } else {
+        //=> File
+        final File newFile = File('${baseDir.path}/$key');
 
-            if (!newFolder.existsSync()) {
-              newFolder.createSync(recursive: true);
-            } else {
-              newFolder.createSync(recursive: true); // Overwrite the folder
-            }
-            await createStructure(value, newFolder, templateName);
-          } else {
-            final newFile = File('${baseDir.path}/$key');
+        // Skip platform files...
+        if (_isPlatformFolder(newFile.parent)) {
+          continue;
+        }
 
-            if (_isPlatformFolder(newFile.parent)) {
-              continue; // Skip platform files
-            }
+        // Create the file if it doesn't exist...
+        if (!await IOHelper.file.exists(newFile.absolute.path)) {
+          await IOHelper.file.create(newFile.absolute.path);
+        }
 
-            if (!newFile.existsSync()) {
-              newFile.createSync(recursive: true);
-            } else {
-              newFile.createSync(recursive: true); // Overwrite the file
-            }
+        // Copy reference content...
+        if (value is String) {
+          final String referenceFilePath =
+              "${Constants.templatesPath}${Platform.pathSeparator}$templateName${Platform.pathSeparator}$value";
 
-            if (value is String) {
-              // Copy content from the referenced file
-              final referenceFilePath =
-                  "${Constants.templatesPath}${Platform.pathSeparator}$templateName${Platform.pathSeparator}$value";
-
-              if (await IOHelper.file.exists(referenceFilePath)) {
-                await IOHelper.file.writeString(newFile.path,
-                    await IOHelper.file.readAsString(referenceFilePath));
-              } else {}
-            }
+          // Re-validate the reference file exists...
+          if (!await IOHelper.file.exists(referenceFilePath)) {
+            PrintsHelper.printError(
+                "Reference file '$referenceFilePath' doesn't exist.");
+            ConsoleHelper.exit(1);
           }
+
+          // Read the reference file content...
+          String fileContent =
+              await IOHelper.file.readAsString(referenceFilePath);
+
+          // Perform replacements if replacementsMap is provided...
+          if (replacementsMap.isNotEmpty) {
+            fileContent = _replacePlaceholders(fileContent, replacementsMap);
+          }
+
+          // Write the modified content to the new file...
+          await IOHelper.file.writeString(newFile.path, fileContent);
         }
       }
     }
@@ -100,4 +84,15 @@ bool _isPlatformFolder(Directory dir) {
   final folderName = dir.uri.pathSegments.last;
 
   return platformFolders.contains(folderName);
+}
+
+/// Helper function to replace placeholders in a string using the replacementsMap.
+String _replacePlaceholders(
+    String content, Map<String, String> replacementsMap) {
+  for (final entry in replacementsMap.entries) {
+    final placeholder = '{{${entry.key}}}';
+    final replacement = entry.value;
+    content = content.replaceAll(placeholder, replacement);
+  }
+  return content;
 }
