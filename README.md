@@ -61,17 +61,17 @@ platforms:
 isPackage: false
 
 structure:
-  - main.env
-  - anotherFile.MD
-  - pubspec.yaml: "src/templates/pubspec.yaml"
-  - lib/:
-      - screens/
-      - models/
-      - widgets/
-  - assets/:
-      - images/
-      - fonts/:
-          - someFont/
+   main.env
+   anotherFile.MD
+   pubspec.yaml: "src/templates/pubspec.yaml"
+   lib/:
+       screens/
+       models/
+       widgets/
+   assets/:
+       images/
+       fonts/:
+           someFont/
 ```
 
 it's super easy, **just hear me out!**
