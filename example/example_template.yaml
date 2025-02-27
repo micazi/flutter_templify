@@ -59,9 +59,11 @@ structure:
   # Example of a clean architecture structure:
   lib/:
     main.dart: "./ref/lib/main.dart.example"
+    someEmptyFolder/:
     core/:
       utils/: # Utility classes and extensions.
         string_extensions.dart: "./ref/core/utils/string_extensions.dart.example"
+        some_empty_file.dart:
     data/: # Data layer containing models, providers, and repositories.
       models/: # Data models.
         example_model.dart: "./ref/data/models/example_model.dart.example"
@@ -138,4 +140,5 @@ custom_commands:
 # - Ensure all referenced files (e.g., "./ref/...") exist. Files must be in the 'ref' folder to be moved correctly.
 # - Use absolute paths only when necessary and ensure they are prefixed with "abs:".
 # - This structure adheres to clean architecture principles but can be customized to your project's needs.
+# - Some problems might arise with certain patterns in the 'extra_prompted_vars' section, Please report an issue on the Github repo for me to take notice and fix.
 

@@ -67,12 +67,16 @@ Future<void> addTemplateCallback(
             Map<String, dynamic> map, String srcDirectoryPath,
             {String? parentPath}) async {
           Map<String, dynamic> updatedMap = {};
-          await Future.forEach(map.entries, (mapEntry) async {
-            if (mapEntry.value != null &&
-                mapEntry.value.toString().isNotEmpty) {
-              if (mapEntry.key.endsWith('/') && mapEntry.value is Map) {
-                //-> Folder Key
 
+          await Future.forEach(map.entries, (mapEntry) async {
+            if (mapEntry.key.endsWith('/')) {
+              //-> Folder Key
+
+              if (mapEntry.value == null) {
+                //-> Empty Folder
+                updatedMap[mapEntry.key] = null;
+              } else {
+                //-> Non-Empty Folder
                 // Loop through the nested map...
                 currentParentTrail =
                     "$currentParentTrail${Platform.pathSeparator}${mapEntry.key}";
@@ -80,9 +84,12 @@ Future<void> addTemplateCallback(
                     mapEntry.value, srcDirectoryPath,
                     parentPath: currentParentTrail);
                 updatedMap[mapEntry.key] = nestedMap;
-              } else {
-                //-> File Key
-
+                currentParentTrail =
+                    "$currentParentTrail${Platform.pathSeparator}..";
+              }
+            } else {
+              //-> File Key
+              if (mapEntry.value != null) {
                 // Get the file path...
                 String filePath = p.normalize(p.isAbsolute(
                         mapEntry.value.toString().replaceAll('abs:', ''))
@@ -95,15 +102,22 @@ Future<void> addTemplateCallback(
                         .absolute
                         .path);
 
+                String destinationFilePath =
+                    "$srcDirectoryPath/${currentParentTrail == '.' ? '' : currentParentTrail}/ref_${mapEntry.key}"
+                        .replaceSeparator();
+
                 // Copy the file to the SRC
-                await IOHelper.file.copy(filePath,
-                    "$srcDirectoryPath/$currentParentTrail/ref_${mapEntry.key}");
+                await IOHelper.file
+                    .copy(filePath, p.normalize(destinationFilePath));
 
                 //Set the relative path of the copiedFile
                 String relPath =
-                    "./src/${currentParentTrail == '.' ? '' : currentParentTrail}" +
-                        "ref_${mapEntry.key}";
+                    "./src/${currentParentTrail == '.' ? '' : currentParentTrail.endsWith('..') ? "$currentParentTrail${Platform.pathSeparator}" : currentParentTrail}" +
+                        "ref_${mapEntry.key}".replaceSeparator();
+
                 updatedMap[mapEntry.key] = p.normalize(relPath);
+              } else {
+                updatedMap[mapEntry.key] = null;
               }
             }
           });
@@ -115,6 +129,7 @@ Future<void> addTemplateCallback(
         Map<String, dynamic> pathedMap = await mapValueToRelativePath(
             (parsedYamlMap['structure'] as Map<String, dynamic>),
             srcDir.absolute.path);
+
         parsedYamlMap['structure'] = pathedMap;
 
         // Create the yaml file to the templates directory
