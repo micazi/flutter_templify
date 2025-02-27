@@ -1,6 +1,6 @@
 name: flutter_templify
 description: flutter_templify is a customizable CLI tool for managing Flutter app templates with YAML-based project definitions.
-version: 0.2.1
+version: 0.2.2
 homepage: https://github.com/micazi/flutter_templify
 
 environment:
@@ -12,6 +12,6 @@ dependencies:
 
 dev_dependencies:
   lints: ^5.1.1
-  
+
 executables:
   flutter_templify:

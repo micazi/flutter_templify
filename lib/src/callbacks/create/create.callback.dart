@@ -87,7 +87,7 @@ Future<void> createCallBack(String? templateName, String? projectName) async {
       'description':
           "Name of the Organization's domain you're creating this project with e.g example.com",
       'default': "example.com",
-      'pattern': r'^[a-zA-Z]{2,61}[a-zA-Z0-9]{0,}\.[a-zA-Z]{1,}$',
+      'pattern': r'^[a-zA-Z]{2,61}[a-zA-Z0-9-_]{0,}\.[a-zA-Z]{1,}$',
     },
   };
 

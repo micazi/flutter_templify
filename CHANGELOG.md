@@ -1,3 +1,6 @@
+## 0.2.2
+**FIX**: Updated pattern-matching for 'domain_name' to include dashed and underscore.
+
 ## 0.2.1
 **FIX**: Fixed issues when cycling through empty folders in the structure.
 **DOCS**: Updated Changelog layout to TopDown.
