@@ -1,3 +1,7 @@
+## 0.2.5
+**FIX**: Fixed the 'create' command implementation to cd into the project before executing custom commands.
+**DEPS**: Updated the main underlying `darted_cli` package.
+
 ## 0.2.2
 **FIX**: Updated pattern-matching for 'domain_name' to include dashed and underscore.
 

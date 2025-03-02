@@ -37,10 +37,10 @@ packages:
     dependency: "direct main"
     description:
       name: darted_cli
-      sha256: fe1809a5b7b0c1ef97cc4622928f379227f20fa0837fc63dbe1b55a2bfd29d9c
+      sha256: fe59e126f5c20de2b60c32a4246023b4aba06bc6f70d3b0c8da82c2a39b59a46
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.27"
+    version: "0.2.0"
   enough_ascii_art:
     dependency: transitive
     description:

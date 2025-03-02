@@ -13,7 +13,7 @@ platforms:
   - ios
   - android
   - web
-isPackage: false # Set to true if the template is for a Flutter package
+isPackage: false # Set to true if the template is for a Dart/Flutter package
 
 # Define the structure of your template
 # Use relative paths ("./") for files within the same folder as this YAML file
@@ -39,7 +39,7 @@ structure:
 After creating your template YAML file, add it to your local `flutter_templify` repository with the following command:
 
 ```bash
-flutter_templify templates add -f path/to/template.yaml
+flutter_templify templates add path/to/template.yaml
 ```
 
 - Replace `path/to/template.yaml` with the relative or absolute path to your template YAML file.
@@ -51,11 +51,10 @@ flutter_templify templates add -f path/to/template.yaml
 Once your template is added, you can use it to generate a new Flutter project. Here’s an example command:  
 
 ```bash
-flutter_templify create -t awesome-template -n awesome_project
+flutter_templify create awesome-template
 ```
 
-- **`-t`**: The name of your template (as defined in the `name` field of your YAML).  
-- **`-n`**: The name of the project you want to create.  
+- **`<template>`**: The name of your template (as defined in the `name` field of your YAML).  
 
 ---
 

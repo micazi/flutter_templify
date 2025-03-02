@@ -12,7 +12,7 @@ See how to get started [here](https://medium.com/@micazi/youre-starting-your-new
 2. [Installation](#installation)
 3. [Usage](#usage)
 4. [Developer Experience](#developer-experience)
-5. [Featurs / Requests](#featurs-and-requests)
+5. [Features / Requests](#features-and-requests)
 6. [Powered by darted_cli](#powered-by-darted_cli)
 7. [License](#license)
 
@@ -61,17 +61,17 @@ platforms:
 isPackage: false
 
 structure:
-   main.env
-   anotherFile.MD
+   main.env:
+   anotherFile.MD:
    pubspec.yaml: "src/templates/pubspec.yaml"
    lib/:
-       screens/
-       models/
-       widgets/
+       screens/:
+       models/:
+       widgets/:
    assets/:
-       images/
+       images/:
        fonts/:
-           someFont/
+           someFont/:
 ```
 
 it's super easy, **just hear me out!**
@@ -96,7 +96,7 @@ flutter_templify templates ls
 Now for the cool part, Here is how you quickly get up and running with a new project:
 
 ```bash
-flutter_templify create -t awesome-template -n my_awesome_project
+flutter_templify create awesome-template
 ```
 
 wherever your terminal location is, the new project folder will be created, structured, validated, and ready for you to dive in!
@@ -115,14 +115,14 @@ Example:
 ```yaml
 extra_prompted_vars:
   api_url:
-    title: "API URL"
-    description: "Enter the base API URL for the project."
-    default: "https://api.example.com"
-    pattern: "^(https?:\/\/).+"
+    title: API URL
+    description: Enter the base API URL for the project.
+    default: https://api.example.com
+    pattern: ^(https?:\/\/).+
   enable_analytics:
-    title: "Enable Analytics?"
-    description: "Would you like to enable analytics in your app? (yes/no)"
-    default: "yes"
+    title: Enable Analytics?
+    description: Would you like to enable analytics in your app? (yes/no)
+    default: yes
 ```
 
 At runtime, you'll be prompted to fill in these variables, which can then be dynamically injected into your project files.
@@ -137,7 +137,7 @@ flutter_templify is built with developers in mind, providing:
 - **Minimal Boilerplate**: Start new projects with a fully structured template.
 - **Extensibility**: Easily extend or modify templates to suit your workflow.
 
-## Featurs and Requests
+## Features and Requests
 
 - [x] YAML-based project creation.
 - [X] Dynamic placeholders inside of your reference files to substitute with metadata _(e.g., project name, version, etc.)_

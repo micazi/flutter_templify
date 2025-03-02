@@ -5,6 +5,4 @@ import 'package:flutter_templify/flutter_templify.dart';
 void main(List<String> input) => dartedEntry(
       input: input,
       commandsTree: commandsTree,
-      customHelpResponse: (c) => commandsUsagePrinter(c),
-      customEntryHelper: (commandsTree) => defaultEntryHelper(commandsTree),
     );

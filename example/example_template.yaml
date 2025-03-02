@@ -102,25 +102,25 @@ structure:
 
 extra_prompted_vars:
   app_title:
-    title: "Application Title"
-    description: "The title of the application being created."
-    default: "My Flutter App"
+    title: Application Title
+    description: The title of the application being created.
+    default: My Flutter App
 
   package_id:
-    title: "Package Identifier"
-    description: "A unique identifier for the project (e.g., com.example.app)."
-    default: "com.example.app"
-    pattern: "^[a-zA-Z]{2,61}[a-zA-Z0-9]*\\.[a-zA-Z]{1,}$"
+    title: Package Identifier
+    description: A unique identifier for the project (e.g., com.example.app).
+    default: com.example.app
+    pattern: ^[a-zA-Z]{2,61}[a-zA-Z0-9]*\\.[a-zA-Z]{1,}$
 
   author_name:
-    title: "Author Name"
-    description: "The name of the application's author."
+    title: Author Name
+    description: The name of the application's author.
 
   version_name:
-    title: "Version Name"
-    description: "The human-readable version of the app (e.g., 1.0.0)."
-    default: "1.0.0"
-    pattern: "^\\d+\\.\\d+\\.\\d+$"
+    title: Version Name
+    description: The human-readable version of the app (e.g., 1.0.0).
+    default: 1.0.0
+    pattern: ^\\d+\\.\\d+\\.\\d+$
 
 # ====================================================
 # CUSTOM COMMANDS

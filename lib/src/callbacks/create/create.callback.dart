@@ -12,7 +12,7 @@ import 'validators/supplied_prompts.dart';
 import 'validators/template_provided.dart';
 import 'create_structure.dart';
 
-Future<void> createCallBack(String? templateName, String? projectName) async {
+Future<void> createCallBack(String? templateName) async {
   // Make sure template is provided...
   validateTemplateIsProvided(templateName);
 
@@ -170,6 +170,9 @@ Future<void> createCallBack(String? templateName, String? projectName) async {
 
   // Execute the custom commands
   if (parsedCustomCommands.isNotEmpty) {
+    // Get inside the project directory
+    await IOHelper.directory.change('./$projectName'.replaceSeparator().trim());
+    
     await Future.forEach(parsedCustomCommands, (command) async {
       // Pre-run print...
       ConsoleHelper.writeSpace();
