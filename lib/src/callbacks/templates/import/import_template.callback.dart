@@ -7,6 +7,7 @@ import '../../shared/validators/shared_validators.exports.dart';
 import 'unarchive_zip_file.dart';
 import 'zip_file_provided.dart';
 
+/// The main callback for the `templates import` subcommand.
 Future<void> importTemplateCallback(String? filePath) async {
   // Validate the file is supplied and exists...
   await validateZipFileIsProvided(filePath);

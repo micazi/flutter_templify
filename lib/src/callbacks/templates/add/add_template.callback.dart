@@ -9,6 +9,7 @@ import '../../shared/validators/shared_validators.exports.dart';
 import 'convert_relative_to_absolute.dart';
 import 'package:path/path.dart' as p;
 
+/// The main callback for the `templates add` subcommand.
 Future<void> addTemplateCallback(
     Map<String, dynamic>? args, Map<String, bool>? flags) async {
   // Required args

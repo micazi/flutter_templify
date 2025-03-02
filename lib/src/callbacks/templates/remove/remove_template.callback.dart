@@ -3,6 +3,7 @@ import 'package:darted_cli/io_helper.dart';
 import '../../../constants.dart';
 import '../../shared/validators/template_exists.dart';
 
+/// The main callback for the `templates rm` subcommand.
 Future<void> removeTemplateCallback(String? templateName) async {
   // Make sure the template exists...
   await ConsoleHelper.loadWithTask(

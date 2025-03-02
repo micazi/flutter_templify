@@ -7,6 +7,7 @@ import '../../shared/validators/shared_validators.exports.dart';
 import 'validators/templates_not_empty.dart';
 import 'package:path/path.dart' as p;
 
+/// The main callback for the `templates ls` subcommand.
 Future<void> listTemplatesCallback() async {
   List<String> templatesMappedString = [];
 

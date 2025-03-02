@@ -5,6 +5,7 @@ import '../../../constants.dart';
 import '../../shared/validators/template_exists.dart';
 import 'open_folder.dart';
 
+/// The main callback for the `templates open` subcommand.
 Future<void> openTemplateCallback(String? templateName) async {
   // Make sure the template exists...
   await ConsoleHelper.loadWithTask(

@@ -1,6 +1,7 @@
 import 'package:darted_cli/darted_cli.dart';
 import './callbacks/callbacks.exports.dart';
 
+/// The main commands directory for `flutter_templify`
 List<DartedCommand> commandsTree = [
   //S1 - Templates
   DartedCommand(

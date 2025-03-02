@@ -5,6 +5,7 @@ import '../../../constants.dart';
 import '../../shared/validators/template_exists.dart';
 import 'archive_folder.dart';
 
+/// The main callback for the `templates export` subcommand.
 Future<void> exportTemplateCallback(
     String? templateName, String? outputDirectoryPath) async {
   // Make sure the template exists...
