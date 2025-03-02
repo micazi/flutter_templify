@@ -25,12 +25,12 @@
 // $startPrint
 // $packageArt
 // | $packageDescription
-// | 
+// |
 // | $usage
-// | 
+// |
 // $justifiedCommands
-// | 
-// | 
+// |
+// |
 // $endPrint\n
 // """;
 // }

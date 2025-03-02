@@ -23,11 +23,22 @@ List<DartedCommand> commandsTree = [
         name: 'add',
         helperDescription: "Add a new custom template from a YAML file.",
         arguments: [
-          DartedArgument(name: 'file', abbreviation: 'f', isMainReq: true, description: 'path of the YAML file that represents your template.'),
+          DartedArgument(
+              name: 'file',
+              abbreviation: 'f',
+              isMainReq: true,
+              description:
+                  'path of the YAML file that represents your template.'),
         ],
         flags: [
           DartedFlag.help,
-          DartedFlag(name: 'overwrite', abbreviation: 'ow', canBeNegated: false, appliedByDefault: false, description: 'overwrite the current template with the same name if exists.'),
+          DartedFlag(
+              name: 'overwrite',
+              abbreviation: 'ow',
+              canBeNegated: false,
+              appliedByDefault: false,
+              description:
+                  'overwrite the current template with the same name if exists.'),
         ],
         callback: (args, flags) async => await addTemplateCallback(args, flags),
       ),
@@ -36,49 +47,73 @@ List<DartedCommand> commandsTree = [
         name: 'open',
         helperDescription: "Open the template's containing folder to modify.",
         arguments: [
-          DartedArgument(name: 'name', abbreviation: 'n', isMainReq: true, description: 'name of the template to open.'),
+          DartedArgument(
+              name: 'name',
+              abbreviation: 'n',
+              isMainReq: true,
+              description: 'name of the template to open.'),
         ],
         flags: [
           DartedFlag.help,
         ],
-        callback: (args, flags) async => await openTemplateCallback(args?['name'] ?? args?['n']),
+        callback: (args, flags) async =>
+            await openTemplateCallback(args?['name'] ?? args?['n']),
       ),
       //S2 -- Remove
       DartedCommand(
         name: 'rm',
         helperDescription: "Remove a template.",
         arguments: [
-          DartedArgument(name: 'name', abbreviation: 'n', isMainReq: true, description: 'name of the template to remove.'),
+          DartedArgument(
+              name: 'name',
+              abbreviation: 'n',
+              isMainReq: true,
+              description: 'name of the template to remove.'),
         ],
         flags: [
           DartedFlag.help,
         ],
-        callback: (args, flags) async => await removeTemplateCallback(args?['name'] ?? args?['n']),
+        callback: (args, flags) async =>
+            await removeTemplateCallback(args?['name'] ?? args?['n']),
       ),
       //S2 -- Export
       DartedCommand(
         name: 'export',
         helperDescription: "Archive and Export a template for sharing.",
         arguments: [
-          DartedArgument(name: 'name', abbreviation: 'n', isMainReq: true, description: 'name of the template to remove.'),
-          DartedArgument(name: 'output', abbreviation: 'o', description: 'output directory for the archive file.'),
+          DartedArgument(
+              name: 'name',
+              abbreviation: 'n',
+              isMainReq: true,
+              description: 'name of the template to remove.'),
+          DartedArgument(
+              name: 'output',
+              abbreviation: 'o',
+              description: 'output directory for the archive file.'),
         ],
         flags: [
           DartedFlag.help,
         ],
-        callback: (args, flags) async => await exportTemplateCallback(args?['name'] ?? args?['n'], args?['output'] ?? args?['o']),
+        callback: (args, flags) async => await exportTemplateCallback(
+            args?['name'] ?? args?['n'], args?['output'] ?? args?['o']),
       ),
       //S2 -- Import
       DartedCommand(
         name: 'import',
-        helperDescription: "Import a template from a previously exported zip archive.",
+        helperDescription:
+            "Import a template from a previously exported zip archive.",
         arguments: [
-          DartedArgument(name: 'file', abbreviation: 'f', isMainReq: true, description: 'directory of the archive file.'),
+          DartedArgument(
+              name: 'file',
+              abbreviation: 'f',
+              isMainReq: true,
+              description: 'directory of the archive file.'),
         ],
         flags: [
           DartedFlag.help,
         ],
-        callback: (args, flags) async => await importTemplateCallback(args?['file'] ?? args?['f']),
+        callback: (args, flags) async =>
+            await importTemplateCallback(args?['file'] ?? args?['f']),
       ),
     ],
   ),
@@ -90,7 +125,12 @@ List<DartedCommand> commandsTree = [
     ],
     helperDescription: "Create a new project based on a template.",
     arguments: [
-      DartedArgument(name: 'template', abbreviation: 't', isMainReq: true, description: 'name of the template to create the Flutter project with.'),
+      DartedArgument(
+          name: 'template',
+          abbreviation: 't',
+          isMainReq: true,
+          description:
+              'name of the template to create the Flutter project with.'),
     ],
     callback: (args, flags) async => await createCallBack(
       args?['template'] ?? args?['t'],

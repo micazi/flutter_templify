@@ -10,7 +10,7 @@
 **DOCS**: Updated Changelog layout to TopDown.
 
 ## 0.2.0
-==> Make sure to check the [example.md](example\example.md) file for the updated template file and usage examples.
+*Make sure to check the [example.md](example\example.md) file for the updated template file and usage examples.*
 
 **CHORE**: Some architecture enhancements.
 **DEPS**: Updated the main underlying `darted_cli` package.

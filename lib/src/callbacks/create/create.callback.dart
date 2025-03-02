@@ -172,7 +172,7 @@ Future<void> createCallBack(String? templateName) async {
   if (parsedCustomCommands.isNotEmpty) {
     // Get inside the project directory
     await IOHelper.directory.change('./$projectName'.replaceSeparator().trim());
-    
+
     await Future.forEach(parsedCustomCommands, (command) async {
       // Pre-run print...
       ConsoleHelper.writeSpace();
